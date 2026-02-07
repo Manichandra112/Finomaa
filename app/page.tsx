@@ -33,7 +33,8 @@ export default function Home() {
                 <a href="#how" className="text-sm text-white/80 hover:text-white transition-colors">How It Works</a>
                 <a href="#contact" className="text-sm text-white/80 hover:text-white transition-colors">Contact</a>
                 <Link href="/price-levels" className="text-sm text-white/80 hover:text-white transition-colors">Pricing</Link>
-                <a href="https://wa.me/919063909032" className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition hover:-translate-y-0.5 hover:opacity-90">Get Started</a>
+                <Link href="/auth/login" className="text-sm text-white/80 hover:text-white transition-colors">Login</Link>
+                <Link href="/auth/signup" className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition hover:-translate-y-0.5 hover:opacity-90">Sign Up</Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -53,7 +54,8 @@ export default function Home() {
                     <a href="#how" className="py-2 border-b border-white/20 hover:text-white" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
                     <a href="#contact" className="py-2 border-b border-white/20 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Contact</a>
                     <Link href="/price-levels" className="py-2 border-b border-white/20 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
-                    <a href="https://wa.me/919063909032" className="mt-3 inline-block bg-white text-black font-medium px-4 py-2 rounded-md hover:opacity-90">Get Started</a>
+                    <Link href="/auth/login" className="py-2 border-b border-white/20 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                    <Link href="/auth/signup" className="mt-3 inline-block bg-white text-black font-medium px-4 py-2 rounded-md hover:opacity-90">Sign Up</Link>
                   </div>
                 </div>
               )}
@@ -229,6 +231,34 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Enterprise Features Section */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+            <div className="mx-auto max-w-3xl text-center mb-12">
+              <h2 className="font-serif text-3xl md:text-4xl tracking-tight">Enterprise Dashboard</h2>
+              <p className="mt-4 text-base text-gray-600 md:text-lg">Complete control with advanced features for managing your financial profile, applications, and credit journey.</p>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: 'Secure Authentication', desc: 'Login and manage your account with enterprise-grade security.' },
+                { title: 'Application Tracking', desc: 'Real-time status updates on your loan applications.' },
+                { title: 'Eligibility Checker', desc: 'Instant tier classification based on your profile.' },
+                { title: 'Audit & Compliance', desc: 'Complete activity tracking for your peace of mind.' },
+              ].map((item, idx) => (
+                <div key={idx} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  <h3 className="font-serif text-lg">{item.title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12 text-center">
+              <Link href="/auth/signup" className="inline-flex items-center justify-center rounded-full bg-black px-6 py-3 text-sm md:text-base font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-90">
+                Access Your Dashboard
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="bg-black text-white">
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
@@ -275,6 +305,8 @@ export default function Home() {
                 <li><a href="#features" className="hover:text-white transition">Features</a></li>
                 <li><a href="#how" className="hover:text-white transition">How It Works</a></li>
                 <li><Link href="/price-levels" className="hover:text-white transition">Pricing</Link></li>
+                <li><Link href="/auth/login" className="hover:text-white transition">Login</Link></li>
+                <li><Link href="/auth/signup" className="hover:text-white transition">Dashboard</Link></li>
               </ul>
             </div>
 
