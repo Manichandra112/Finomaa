@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth antialiased">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finomaa — Quietly Powerful Finance</title>
-  <meta name="description" content="Finoma: Quick funds with transparent terms. Minimal, luxurious fintech for modern professionals." />
+  <meta name="description"
+    content="Finoma: Quick funds with transparent terms. Minimal, luxurious fintech for modern professionals." />
 
 
 
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
 
 
-<meta property="og:image" content="https://finomaa.com/banner.jpg">
+  <meta property="og:image" content="https://finomaa.com/banner.jpg">
 
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -26,214 +28,513 @@
 
 
 
-  
+
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-  
-  document.querySelectorAll('details a').forEach(link => {
-    link.addEventListener('click', () => {
-      const menu = link.closest('details');
-      if (menu) menu.removeAttribute('open');
+
+    document.querySelectorAll('details a').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = link.closest('details');
+        if (menu) menu.removeAttribute('open');
+      });
     });
-  });
-</script>
+  </script>
 
   <style>
-   
+    #home {
+      scroll-margin-top: 80px;
+    }
+
+    #services,
+    #features,
+    #how,
+    #contact {
+      scroll-margin-top: calc(max(100px, 50vh - 280px));
+    }
+
     .focus-outline:focus-visible {
-      outline: 2px solid rgba(0,0,0,0.6);
+      outline: 2px solid rgba(0, 0, 0, 0.6);
       outline-offset: 3px;
     }
+
     .focus-outline--inverted:focus-visible {
-      outline: 2px solid rgba(255,255,255,0.8);
+      outline: 2px solid rgba(255, 255, 255, 0.8);
       outline-offset: 3px;
     }
-  
- 
 
-    #home .page-inner {
-      padding-top: 4rem;
-      padding-bottom: 10rem; 
+    /* ── Full-width Hero ── */
+    .hero-fullwidth {
+      position: relative;
+      width: 100%;
+      margin-top: 80px;
+      background: #000;
+      overflow: hidden;
     }
 
-    #home .page-inner {
-      padding-top: 4rem;
-      padding-bottom: 14rem;
-    }
-    
-
-     @media (min-width: 1024px) {
-      #home .page-inner {
-        padding-top: 5.5rem;
-        padding-bottom: 14rem; 
-      }
-      .hero-img {
-        transform: translateY(18px); 
-      }
+    .hero-img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
-    @media (max-width: 1023px) {
-      #home .page-inner {
-        padding-bottom: 6.5rem;
+    /* Dark gradient overlay — strictly bound to image dimensions */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.82) 0%,
+          rgba(0, 0, 0, 0.60) 40%,
+          rgba(0, 0, 0, 0.20) 70%,
+          rgba(0, 0, 0, 0.05) 100%);
+      pointer-events: none;
+    }
+
+    /* Hero text overlay */
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+
+    @media (max-width: 767px) {
+      .hero-fullwidth {
+        display: flex;
+        flex-direction: column;
       }
-      .hero-img {
-        transform: translateY(12px);
+
+      .hero-overlay {
+        display: none;
+      }
+
+      .hero-content {
+        position: relative;
+        inset: auto;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        background: #000000;
       }
     }
 
-    
+    .hero-title {
+      font-size: clamp(24px, 6.8vw, 38px);
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 2.25rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+        line-height: 1.12;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 51px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .hero-title {
+        font-size: 57px;
+      }
+    }
+
+    /* Floating badge animations */
+    @keyframes floatUp {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes floatDown {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    .hero-float-up {
+      animation: floatUp 4s ease-in-out infinite;
+    }
+
+    .hero-float-down {
+      animation: floatDown 4.5s ease-in-out infinite;
+    }
+
+    /* Frosted glass badges */
+    .hero-badge {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1rem;
+      padding: 0.5rem 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    }
   </style>
 </head>
 
 <body class="bg-white text-black font-sans">
-  <!-- Navbar -->
+  <!-- Navbar (fixed) -->
 
-  <header class="relative">
-    <div class="absolute inset-0 bg-black"></div>
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/15" style="background-color: #000000;">
     <nav class="relative z-10">
       <div class="mx-auto max-w-7xl px-6">
         <div class="flex h-20 items-center justify-between">
-          
-          <a href="#home" class="flex items-center gap-3 text-white focus-outline--inverted" aria-label="Finoma Home">
-           
-            <div class="h-9 w-9 rounded-md bg-white/10 ring-1 ring-white/20 flex items-center justify-center overflow-hidden">
-    <img
-      src="banner.jpg"
-      alt="Finoma logo"
-      class="h-full w-full object-cover"
-    />
-  </div>
-            <div class="leading-tight">
-              
-             
-<img src="headingimage.jpg" alt="Finoma Logo Text" class="h-6 w-auto">
 
-              
-             
+          <!-- Brand Logo -->
+          <a href="#home" class="flex items-center gap-3 text-white focus-outline--inverted" aria-label="Finoma Home">
+            <div
+              class="h-9 w-9 rounded-md bg-white/10 ring-1 ring-white/20 flex items-center justify-center overflow-hidden">
+              <img src="banner.jpg" alt="Finoma logo" class="h-full w-full object-cover" />
+            </div>
+            <div class="leading-tight">
+              <img src="headingimage.jpg" alt="Finoma Logo Text" class="h-6 w-auto">
               <span class="block text-xs text-white/70">Quick funds, Brighter tomorrow</span>
             </div>
           </a>
-          <nav class="bg-black text-white px-4 py-3 flex items-center justify-between">
-  <h1 class="text-lg font-bold"></h1>
 
-  <!-- Desktop Menu -->
- <div class="hidden items-center gap-8 md:flex">
-  <a href="#home" class="text-sm text-white/80 hover:text-white transition-colors focus-outline--inverted">Home</a>
-  <a href="#services" class="text-sm text-white/80 hover:text-white transition-colors focus-outline--inverted">Services</a>
-  <a href="#features" class="text-sm text-white/80 hover:text-white transition-colors focus-outline--inverted">Features</a>
-  <a href="#how" class="text-sm text-white/80 hover:text-white transition-colors focus-outline--inverted">How It Works</a>
-  <a href="#contact" class="text-sm text-white/80 hover:text-white transition-colors focus-outline--inverted">Contact</a>
-  <a href="https://wa.me/919063909032" class="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition hover:-translate-y-0.5 hover:opacity-90 focus-outline--inverted">Get Started</a>
-</div>
+          <!-- Desktop Menu -->
+          <div class="hidden items-center gap-6 lg:gap-8 md:flex">
+            <a href="#home"
+              class="desktop-nav-link text-[15px] lg:text-base font-medium text-white/90 hover:text-white hover:underline underline-offset-8 transition-all">Home</a>
+            <a href="#services"
+              class="desktop-nav-link text-[15px] lg:text-base font-medium text-white/90 hover:text-white hover:underline underline-offset-8 transition-all">Services</a>
+            <a href="#features"
+              class="desktop-nav-link text-[15px] lg:text-base font-medium text-white/90 hover:text-white hover:underline underline-offset-8 transition-all">Features</a>
+            <a href="#how"
+              class="desktop-nav-link text-[15px] lg:text-base font-medium text-white/90 hover:text-white hover:underline underline-offset-8 transition-all">How
+              It Works</a>
+            <a href="#contact"
+              class="desktop-nav-link text-[15px] lg:text-base font-medium text-white/90 hover:text-white hover:underline underline-offset-8 transition-all">Contact</a>
 
+            <!-- Action CTA -->
+            <a href="https://wa.me/919063909032" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-black shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/90 active:scale-95 focus-outline--inverted ml-1">
+              <span>Get Started</span>
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            </a>
+          </div>
 
-  <!-- Mobile Menu -->
-  <button id="menu-btn" class="relative z-50 flex flex-col justify-between w-6 h-5 focus:outline-none md:hidden">
-    <span class="block w-full h-0.5 bg-white transition-all"></span>
-    <span class="block w-full h-0.5 bg-white transition-all"></span>
-    <span class="block w-full h-0.5 bg-white transition-all"></span>
-  </button>
+          <!-- Mobile Hamburger Button -->
+          <button id="menu-btn" type="button" aria-label="Toggle Navigation Menu" aria-expanded="false"
+            class="relative z-50 flex items-center justify-center p-2 text-white focus:outline-none md:hidden active:scale-90 transition-transform">
+            <div class="w-6 h-4 flex flex-col justify-between pointer-events-none">
+              <span class="block w-full h-0.5 bg-white rounded-full transition-all duration-300 origin-center"></span>
+              <span class="block w-full h-0.5 bg-white rounded-full transition-all duration-300"></span>
+              <span class="block w-full h-0.5 bg-white rounded-full transition-all duration-300 origin-center"></span>
+            </div>
+          </button>
 
- 
-    <div id="drawer"
-  class="fixed top-[80px] right-0 w-2/3 max-w-xs bg-black backdrop-blur border-l border-white/10 p-4 pt-6 transform translate-x-full transition-transform duration-300 md:hidden rounded-bl-2xl">
-
-    <div class="flex flex-col text-center space-y-3">
-      <a href="#home" class="py-2 border-b border-white/20 hover:text-white">Home</a>
-      <a href="#services" class="py-2 border-b border-white/20 hover:text-white">Services</a>
-      <a href="#features" class="py-2 border-b border-white/20 hover:text-white">Features</a>
-      <a href="#how" class="py-2 border-b border-white/20 hover:text-white">How It Works</a>
-      <a href="#contact" class="py-2 border-b border-white/20 hover:text-white">Contact</a>
-      <a href="https://wa.me/919063909032" class="mt-3 inline-block bg-white text-black font-medium px-4 py-2 rounded-md hover:opacity-90">Get Started</a>
-    </div>
-  </div>
-</nav>
-
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const drawer = document.getElementById('drawer');
-  let open = false;
-
-  const bars = menuBtn.querySelectorAll('span');
-
-  function toggleMenu(forceClose = false) {
-    open = forceClose ? false : !open;
-    drawer.style.transform = open ? 'translateX(0)' : 'translateX(100%)';
-
-    bars[0].style.transform = open ? 'rotate(45deg) translateY(8px)' : '';
-    bars[1].style.opacity = open ? '0' : '1';
-    bars[2].style.transform = open ? 'rotate(-45deg) translateY(-8px)' : '';
-  }
-
-  menuBtn.addEventListener('click', () => toggleMenu());
-
-  
-  window.addEventListener('scroll', () => {
-    if (open) toggleMenu(true);
-  });
-</script>
         </div>
       </div>
     </nav>
+  </header>
 
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div id="drawer-backdrop"
+    class="fixed inset-0 bg-black/75 backdrop-blur-md z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+    aria-hidden="true"></div>
 
-  <section id="home" class="relative isolate bg-gray-50 text-black pb-8 md:pb-0">
+  <!-- Mobile Navigation Drawer -->
+  <aside id="drawer" aria-label="Mobile Navigation"
+    class="fixed top-[80px] inset-x-0 w-full border-b border-white/15 px-6 py-4 transform translate-x-full transition-all duration-300 ease-out md:hidden flex flex-col shadow-[0_25px_60px_rgba(0,0,0,0.98)] z-40 max-h-[calc(100vh-80px)] overflow-y-auto"
+    style="background-color: #000000;">
 
-  <div class="page-inner">
-    <div class="grid items-center gap-20 md:grid-cols-2">
-      <div class="reveal">
-       
-        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-black">
-          Loans for Doctors & Engineers -  <span style="font-family: Arial;">0</span> % Processing Fee          
-        </h1>
-        <p class="mt-6 max-w-xl text-base text-gray-700 md:text-lg">
-        Empowering professionals with fast, transparent, and hassle-free financial support — access short-term credit with clarity, repay with ease, and move forward with confidence. No hidden charges. No processing fees.
-         
-        </p>
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="https://wa.me/919063909032"  class="inline-flex items-center rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-90 focus-outline--inverted">Get Started</a>
-          <a href="#features" class="inline-flex items-center rounded-full border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 transition focus-outline--inverted">Explore Features</a>
-    
-  <p class="mt-6 max-w-xl text-xl text-gray-700 text-center lg:text-left lg:text-3xl mx-auto">
-  Finomaa Checks Discipline, not Cibil.
-</p>
+    <div class="max-w-md mx-auto w-full flex flex-col">
+      <nav class="flex flex-col">
+        <a href="#home"
+          class="drawer-link flex items-center gap-4 px-2 py-3 text-white/85 hover:text-white active:bg-white/[0.06] transition-all border-b border-white/[0.08]">
+          <svg class="w-6 h-6 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span class="text-xl font-medium tracking-wide">Home</span>
+        </a>
 
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="relative aspect-[4/3] w-full rounded-2xl ">
-          <div class="absolute inset-0 flex items-center justify-center">
- <div class="relative w-full max-w-7xl mx-auto px-6 pt-24 md:pt-32 -mt-8">
-    
-<img src="heroimage.jpg" alt="Finoma Hero Section"
-class="hero-img w-full lg:w-[80%] h-auto rounded-2xl object-cover shadow-lg mx-auto"
-style="margin-top: -40px;" />
+        <a href="#services"
+          class="drawer-link flex items-center gap-4 px-2 py-3 text-white/85 hover:text-white active:bg-white/[0.06] transition-all border-b border-white/[0.08]">
+          <svg class="w-6 h-6 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span class="text-xl font-medium tracking-wide">Services</span>
+        </a>
 
+        <a href="#features"
+          class="drawer-link flex items-center gap-4 px-2 py-3 text-white/85 hover:text-white active:bg-white/[0.06] transition-all border-b border-white/[0.08]">
+          <svg class="w-6 h-6 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span class="text-xl font-medium tracking-wide">Features</span>
+        </a>
 
-</div>
-          </div>
+        <a href="#how"
+          class="drawer-link flex items-center gap-4 px-2 py-3 text-white/85 hover:text-white active:bg-white/[0.06] transition-all border-b border-white/[0.08]">
+          <svg class="w-6 h-6 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span class="text-xl font-medium tracking-wide">How It Works</span>
+        </a>
+
+        <a href="#contact"
+          class="drawer-link flex items-center gap-4 px-2 py-3 text-white/85 hover:text-white active:bg-white/[0.06] transition-all">
+          <svg class="w-6 h-6 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <span class="text-xl font-medium tracking-wide">Contact</span>
+        </a>
+      </nav>
+
+      <!-- Bottom CTA -->
+      <div class="pt-5 pb-1 space-y-3">
+        <a href="https://wa.me/919063909032" target="_blank" rel="noopener noreferrer"
+          class="drawer-link flex items-center justify-center gap-2.5 w-full rounded-full bg-white px-5 py-3.5 text-sm font-bold text-black shadow-xl hover:bg-white/90 active:scale-[0.98] transition-all">
+          <span>Get Started on WhatsApp</span>
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        </a>
+        <div class="text-center">
+          <span class="text-[11px] text-white/45 font-medium tracking-wide">Fast &bull; Transparent &bull; 0% Processing Fee</span>
         </div>
       </div>
     </div>
-  </div>
-</section> 
-  </header>
+  </aside>
 
-  
+  <script>
+    (function () {
+      const menuBtn = document.getElementById('menu-btn');
+      const drawer = document.getElementById('drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      const bars = menuBtn ? menuBtn.querySelectorAll('span') : [];
+      let open = false;
+
+      function toggleMenu(forceClose = false) {
+        open = forceClose ? false : !open;
+
+        if (drawer) {
+          drawer.style.transform = open ? 'translateX(0)' : 'translateX(100%)';
+          if (open) {
+            setTimeout(() => drawer.classList.add('drawer-visible'), 50);
+          } else {
+            drawer.classList.remove('drawer-visible');
+          }
+        }
+
+        if (backdrop) {
+          if (open) {
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            backdrop.classList.add('opacity-100', 'pointer-events-auto');
+          } else {
+            backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+          }
+        }
+
+        if (menuBtn) {
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        if (bars.length === 3) {
+          bars[0].style.transform = open ? 'translateY(7px) rotate(45deg)' : '';
+          bars[1].style.opacity = open ? '0' : '1';
+          bars[2].style.transform = open ? 'translateY(-7px) rotate(-45deg)' : '';
+        }
+
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+
+      if (menuBtn) menuBtn.addEventListener('click', () => toggleMenu());
+      if (backdrop) backdrop.addEventListener('click', () => toggleMenu(true));
+
+      function scrollToTarget(targetId) {
+        if (targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const navHeight = 80;
+        const rect = target.getBoundingClientRect();
+        const targetTop = rect.top + window.scrollY;
+        const targetHeight = target.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        // Position the section centered down into the page
+        if (['services', 'features', 'how'].includes(targetId)) {
+          const visibleViewport = viewportHeight - navHeight;
+          let desiredTop;
+
+          if (targetHeight < visibleViewport) {
+            desiredTop = targetTop - navHeight - (visibleViewport - targetHeight) / 2;
+          } else {
+            desiredTop = targetTop - navHeight - 32;
+          }
+
+          window.scrollTo({
+            top: Math.max(0, desiredTop),
+            behavior: 'smooth'
+          });
+        } else {
+          window.scrollTo({
+            top: Math.max(0, targetTop - navHeight - 20),
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            const targetId = href.replace('#', '');
+            if (targetId === 'home') {
+              e.preventDefault();
+              toggleMenu(true);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              history.pushState(null, '', '#home');
+              return;
+            }
+            if (document.getElementById(targetId)) {
+              e.preventDefault();
+              toggleMenu(true);
+              scrollToTarget(targetId);
+              history.pushState(null, '', href);
+            }
+          }
+        });
+      });
+
+      if (window.location.hash === '#home') {
+        window.scrollTo(0, 0);
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && open) toggleMenu(true);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768 && open) toggleMenu(true);
+      });
+
+      // Desktop ScrollSpy: dynamically highlight current viewing section
+      const desktopLinks = document.querySelectorAll('.desktop-nav-link');
+      const sectionIds = ['home', 'services', 'features', 'how', 'contact'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+      function updateActiveNav() {
+        const scrollPos = window.scrollY + 140;
+        let currentSectionId = '';
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const sec = sections[i];
+          if (sec && sec.offsetTop <= scrollPos) {
+            currentSectionId = sec.id;
+            break;
+          }
+        }
+
+        desktopLinks.forEach(link => {
+          const href = link.getAttribute('href').replace('#', '');
+          if (href === currentSectionId) {
+            link.classList.add('text-white', 'underline');
+            link.classList.remove('text-white/90');
+          } else {
+            link.classList.remove('text-white', 'underline');
+            link.classList.add('text-white/90');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
+      updateActiveNav();
+    })();
+  </script>
+
+  <section id="home" class="hero-fullwidth">
+
+    <!-- Full-width hero image: naturally defines section height, eliminating any bottom gap or cropping -->
+    <img src="finomaaherocropped.png" alt="Finomaa — Loans for Doctors and Engineers" class="hero-img" />
+
+    <!-- Dark gradient overlay strictly matching image dimensions -->
+    <div class="hero-overlay"></div>
+
+    <!-- Content overlay placed on top of the image -->
+    <div class="hero-content">
+      <div class="w-full mx-auto max-w-7xl px-3 sm:px-8">
+        <div class="max-w-4xl lg:max-w-5xl">
+
+          <h1 class="hero-title font-serif font-bold tracking-tight text-white text-center md:text-left">
+            <span class="block whitespace-nowrap">Loans for Doctors & Engineers</span>
+            <span class="block whitespace-nowrap mt-1 sm:mt-2">- <span style="font-family: Arial;">0</span>% Processing Fee</span>
+          </h1>
+
+          <p class="mt-3 sm:mt-4 md:mt-5 max-w-xl text-left text-sm sm:text-base md:text-lg text-white/85 leading-relaxed">
+            Empowering professionals with fast, transparent, and hassle-free financial support — access short-term
+            credit with clarity, repay with ease, and move forward with confidence. No hidden charges. No processing
+            fees.
+          </p>
+
+          <div class="mt-4 sm:mt-6 flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4">
+            <a href="https://wa.me/919063909032"
+              class="inline-flex items-center rounded-full bg-white px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-sm font-semibold text-black shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl focus-outline">Get
+              Started</a>
+            <a href="#features"
+              class="inline-flex items-center rounded-full border border-white/40 bg-white/10 backdrop-blur-sm px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-sm font-medium text-white hover:bg-white/20 hover:border-white/60 transition-all duration-200 hover:-translate-y-0.5 focus-outline--inverted">Explore
+              Features</a>
+          </div>
+
+          <p class="mt-4 sm:mt-6 text-base sm:text-xl md:text-2xl font-serif font-bold text-white/90 italic text-center md:text-left">
+            Finomaa Checks Discipline, not Cibil.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <main>
-   
+
     <section id="why" class="bg-white">
       <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div class="reveal mx-auto max-w-3xl text-center">
           <h2 class="font-serif text-3xl md:text-4xl tracking-tight">Why Choose Finoma?</h2>
-          
-          <p class="mt-4 text-base text-gray-600 md:text-lg">Designed with restraint, built for speed, and delivered with transparency.</p>
+
+          <p class="mt-4 text-base text-gray-600 md:text-lg">Designed with restraint, built for speed, and delivered
+            with transparency.</p>
         </div>
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <!-- Card 1 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
                 <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" />
               </svg>
             </div>
@@ -241,9 +542,11 @@ style="margin-top: -40px;" />
             <p class="mt-2 text-sm text-gray-600">From request to approval in minutes—time is a luxury.</p>
           </div>
           <!-- Card 2 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
                 <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
@@ -252,9 +555,11 @@ style="margin-top: -40px;" />
             <p class="mt-2 text-sm text-gray-600">Clarity at every step—no hidden surprises.</p>
           </div>
           <!-- Card 3 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
                 <path d="M7 7h10l-3-3M17 17H7l3 3" />
               </svg>
             </div>
@@ -262,9 +567,11 @@ style="margin-top: -40px;" />
             <p class="mt-2 text-sm text-gray-600">Match repayments with how you actually live and work.</p>
           </div>
           <!-- Card 4 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
                 <path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z" />
               </svg>
             </div>
@@ -275,195 +582,207 @@ style="margin-top: -40px;" />
       </div>
     </section>
     <!-- Services  -->
-<section id="services" class="bg-gray-50">
-  <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
-    <div class="reveal mx-auto max-w-3xl text-center">
-      <h2 class="font-serif text-3xl md:text-4xl tracking-tight">Our Services</h2>
-    </div>
-
-    <div class="mt-12 grid gap-6 md:grid-cols-3">
-      <!-- Service 1 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-        <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="5" width="18" height="14" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+    <section id="services" class="bg-gray-50">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight">Our Services</h2>
         </div>
-        <h3 class="font-serif text-xl">Digital Payment Card</h3>
-        <p class="mt-2 text-sm text-gray-600">Activate instantly and begin using your digital card within minutes.</p>
-      </div>
 
-      <!-- Service 2 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-        <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="4" y="6" width="16" height="12" rx="2" />
-            <path d="M8 10h8M8 14h5" />
-          </svg>
-        </div>
-        <h3 class="font-serif text-xl">Instant Credit</h3>
-        <p class="mt-2 text-sm text-gray-600">Borrow short‑term amounts quickly, with elegant simplicity.</p>
-      </div>
-
-      <!-- Service 3 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-        <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 17l6-6 4 4 8-8" />
-          </svg>
-        </div>
-        <h3 class="font-serif text-xl">Behavioral Assessment</h3>
-        <p class="mt-2 text-sm text-gray-600">Boost limits over time based on consistent, disciplined usage.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Features -->
-<section id="features" class="bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
-    <div class="reveal mx-auto max-w-3xl text-center">
-      <h2 class="font-serif text-3xl md:text-4xl tracking-tight">Our Features</h2>
-    </div>
-
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Feature 1 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/>
-          </svg>
-        </div>
-        <h3 class="font-serif text-lg">Smart Dashboard</h3>
-        <p class="mt-1 text-sm text-gray-600">Clarity at a glance—balance, usage, repayment.</p>
-      </div>
-
-      <!-- Feature 2 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M20 7l-8 10-4-4" />
-          </svg>
-        </div>
-        <h3 class="font-serif text-lg">Instant Verification</h3>
-        <p class="mt-1 text-sm text-gray-600">Authenticate employment and identity in moments.</p>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M8 15a4 4 0 118 0M12 7v2"/>
-          </svg>
-        </div>
-        <h3 class="font-serif text-lg">24/7 Support</h3>
-        <p class="mt-1 text-sm text-gray-600">Responsive, discreet, and genuinely helpful.</p>
-      </div>
-
-      <!-- Feature 4 -->
-      <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="4" y="11" width="16" height="9" rx="2"/>
-            <path d="M8 11V8a4 4 0 018 0v3"/>
-          </svg>
-        </div>
-        <h3 class="font-serif text-lg">Data Privacy & Transparency</h3>
-        <p class="mt-1 text-sm text-gray-600">Your data, handled with restraint and respect.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How It Works  -->
-<section id="how" class="bg-gray-50">
-  <div class="mx-auto max-w-7xl px-6 pt-13.5 pb-20 md:pt-19 md:pb-20">
-    <div class="grid gap-6 md:grid-cols-2 md:items-center">
-    
-      <div class="reveal md:mt-16"> 
-        <div class="relative aspect-[4/3] w-full rounded-2xl">
-          <div class="absolute inset-0 grid place-items-center">
-            <div class="text-center">
-              <img 
-                class="w-full rounded-2xl border border-gray-200 bg-gray-100 shadow-inner object-contain" 
-                src="works.png" 
-                alt="Works Illustration"
-              >
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <!-- Service 1 -->
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 10h18" />
+              </svg>
             </div>
+            <h3 class="font-serif text-xl">Digital Payment Card</h3>
+            <p class="mt-2 text-sm text-gray-600">Activate instantly and begin using your digital card within minutes.
+            </p>
+          </div>
+
+          <!-- Service 2 -->
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <rect x="4" y="6" width="16" height="12" rx="2" />
+                <path d="M8 10h8M8 14h5" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl">Instant Credit</h3>
+            <p class="mt-2 text-sm text-gray-600">Borrow short‑term amounts quickly, with elegant simplicity.</p>
+          </div>
+
+          <!-- Service 3 -->
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <path d="M3 17l6-6 4 4 8-8" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl">Behavioral Assessment</h3>
+            <p class="mt-2 text-sm text-gray-600">Boost limits over time based on consistent, disciplined usage.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- steps -->
-      <div class="reveal">
-        <h2 class="font-serif text-3xl md:text-4xl tracking-tight text-center md:text-left">How It Works</h2>
-        <ol class="mt-8 divide-y divide-gray-200 rounded-xl border border-gray-200 bg-white">
-          <li class="p-5 md:p-6">
-            <div class="flex items-start gap-4">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">1</span>
-              <div>
-                <h3 class="font-serif text-lg">Sign Up</h3>
-                <p class="mt-1 text-sm text-gray-600">Create your account in moments with essential details.</p>
-              </div>
-            </div>
-          </li>
-          <li class="p-5 md:p-6">
-            <div class="flex items-start gap-4">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">2</span>
-              <div>
-                <h3 class="font-serif text-lg">Verify Employment</h3>
-                <p class="mt-1 text-sm text-gray-600">Instant checks keep the process swift and accurate.</p>
-              </div>
-            </div>
-          </li>
-          <li class="p-5 md:p-6">
-            <div class="flex items-start gap-4">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">3</span>
-              <div>
-                <h3 class="font-serif text-lg">Access Credit</h3>
-                <p class="mt-1 text-sm text-gray-600">Use your approved line with clean, transparent terms.</p>
-              </div>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Features -->
+    <section id="features" class="bg-white">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight">Our Features</h2>
+        </div>
 
-<!-- Trust Section -->
-<section id="testimonials" class="bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
-    <div class="reveal grid gap-10 md:grid-cols-2 md:items-center">
-      
-     
-      <div class="flex items-center justify-center">
-        <div class="relative h-64 w-64 rounded-2xl border border-gray-200 bg-gray-100 shadow-sm overflow-hidden">
-         
-          <div class="absolute inset-0 grid place-items-center">
-           
-            <img src="experts.jpg" class="relative aspect-[4/4] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Feature 1 -->
+          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg">Smart Dashboard</h3>
+            <p class="mt-1 text-sm text-gray-600">Clarity at a glance—balance, usage, repayment.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <path d="M20 7l-8 10-4-4" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg">Instant Verification</h3>
+            <p class="mt-1 text-sm text-gray-600">Authenticate employment and identity in moments.</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8 15a4 4 0 118 0M12 7v2" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg">24/7 Support</h3>
+            <p class="mt-1 text-sm text-gray-600">Responsive, discreet, and genuinely helpful.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-3 h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4 text-gray-800" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <rect x="4" y="11" width="16" height="9" rx="2" />
+                <path d="M8 11V8a4 4 0 018 0v3" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg">Data Privacy & Transparency</h3>
+            <p class="mt-1 text-sm text-gray-600">Your data, handled with restraint and respect.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      
-      <div class="flex flex-col justify-center">
-        <h2 class="font-serif text-3xl md:text-4xl tracking-tight">What Experts Say</h2>
-        <p class="mt-6 text-gray-600 text-base md:text-lg">
-          “Finoma simplifies access to short-term credit with complete transparency. 
-          Their process is quick, professional, and trustworthy—highly recommended for modern professionals seeking financial clarity.”
-        </p>
-        <p class="mt-4 text-gray-800 font-medium">— Dr. Priya R., Financial Consultant</p>
+    <!-- How It Works  -->
+    <section id="how" class="bg-gray-50">
+      <div class="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight">How It Works</h2>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-center">
+
+          <!-- Image Card -->
+          <div class="reveal">
+            <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+              <img class="w-full h-auto object-cover" src="works.png" alt="Works Illustration">
+            </div>
+          </div>
+
+          <!-- Context Card -->
+          <div class="reveal">
+            <ol class="divide-y divide-gray-200 rounded-2xl border border-gray-200 bg-white shadow-sm">
+              <li class="p-5 md:p-6">
+                <div class="flex items-start gap-4">
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">1</span>
+                  <div>
+                    <h3 class="font-serif text-lg">Sign Up</h3>
+                    <p class="mt-1 text-sm text-gray-600">Create your account in moments with essential details.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-5 md:p-6">
+                <div class="flex items-start gap-4">
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">2</span>
+                  <div>
+                    <h3 class="font-serif text-lg">Verify Employment</h3>
+                    <p class="mt-1 text-sm text-gray-600">Instant checks keep the process swift and accurate.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-5 md:p-6">
+                <div class="flex items-start gap-4">
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-800">3</span>
+                  <div>
+                    <h3 class="font-serif text-lg">Access Credit</h3>
+                    <p class="mt-1 text-sm text-gray-600">Use your approved line with clean, transparent terms.</p>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
+    </section>
 
-    </div>
-  </div>
-</section>
+    <!-- Trust Section -->
+    <section id="testimonials" class="bg-white">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <div class="reveal grid gap-10 md:grid-cols-2 md:items-center">
 
-<!-- Reach Section -->
+
+          <div class="flex items-center justify-center">
+            <div class="relative h-64 w-64 rounded-2xl border border-gray-200 bg-gray-100 shadow-sm overflow-hidden">
+
+              <div class="absolute inset-0 grid place-items-center">
+
+                <img src="experts.jpg"
+                  class="relative aspect-[4/4] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="flex flex-col justify-center">
+            <h2 class="font-serif text-3xl md:text-4xl tracking-tight">What Experts Say</h2>
+            <p class="mt-6 text-gray-600 text-base md:text-lg">
+              “Finoma simplifies access to short-term credit with complete transparency.
+              Their process is quick, professional, and trustworthy—highly recommended for modern professionals seeking
+              financial clarity.”
+            </p>
+            <p class="mt-4 text-gray-800 font-medium">— Dr. Priya R., Financial Consultant</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Reach Section -->
     <section id="reach" class="bg-gray-50">
       <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div class="reveal mx-auto max-w-3xl text-center">
@@ -472,7 +791,8 @@ style="margin-top: -40px;" />
         </div>
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <!-- Reach Item 1 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
               <img src="profile.png" alt="Customer Icon" class="h-full w-full object-contain">
             </div>
@@ -480,7 +800,8 @@ style="margin-top: -40px;" />
             <p class="mt-2 text-sm text-gray-600 text-center">Happy Customers</p>
           </div>
           <!-- Reach Item 2 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
               <img src="dollar.png" alt="Capital Icon" class="h-full w-full object-contain">
             </div>
@@ -488,7 +809,8 @@ style="margin-top: -40px;" />
             <p class="mt-2 text-sm text-gray-600 text-center">Capital Infused</p>
           </div>
           <!-- Reach Item 3 -->
-          <div class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <div
+            class="reveal rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="mb-4 h-10 w-10 rounded-md bg-gray-100 flex items-center justify-center">
               <img src="bag.png" alt="Cities Icon" class="h-full w-full object-contain">
             </div>
@@ -499,127 +821,130 @@ style="margin-top: -40px;" />
       </div>
     </section>
 
-<!-- Call  -->
-<section id="cta" class="bg-black text-white">
-  <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
-    <h2 class="font-serif text-3xl md:text-5xl tracking-tight">Ready to Take Control of Your Finances?</h2>
-    <p class="mt-6 text-gray-300 text-base md:text-lg max-w-2xl mx-auto">
-      Sign up today and access quick, transparent credit tailored for modern professionals. Minimal paperwork, instant verification, and complete clarity.
-    </p>
-    <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-      <a href="https://wa.me/919063909032" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm md:text-base font-medium text-black shadow-sm transition hover:-translate-y-0.5 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
-        Get Started
-      </a>
-      <a href="#features" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm md:text-base font-medium text-white/90 hover:text-white hover:bg-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
-        Explore Features
-      </a>
-    </div>
-  </div>
-</section>
-<!-- Footer  -->
- 
-<footer  id="contact" class="bg-black text-white">
-  <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      
-      
-      <div>
-       
-        
-        <a href="#home" class="flex items-center gap-3 text-white focus-outline--inverted" aria-label="Finoma Home">
-  <div class="h-9 w-9 rounded-md bg-white/10 ring-1 ring-white/20 flex items-center justify-center overflow-hidden">
-    <img
-      src="banner.jpg"
-      alt="Finoma logo"
-      class="h-full w-full object-cover"
-    />
-  </div>
-
-  <div class="leading-tight">
-
-    
-     <img src="headingimage.jpg" alt="Finoma Logo Text" class="h-6 w-auto">
-    <span class="block text-xs text-white/70">Quick funds, Brighter tomorrow</span>
-  </div>
-</a>
-
-
-        <p class="mt-4 text-sm text-white/70 max-w-xs">
-          Finoma provides fast, transparent financial solutions for modern professionals.
+    <!-- Call  -->
+    <section id="cta" class="bg-black text-white">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
+        <h2 class="font-serif text-3xl md:text-5xl tracking-tight">Ready to Take Control of Your Finances?</h2>
+        <p class="mt-6 text-gray-300 text-base md:text-lg max-w-2xl mx-auto">
+          Sign up today and access quick, transparent credit tailored for modern professionals. Minimal paperwork,
+          instant verification, and complete clarity.
         </p>
+        <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+          <a href="https://wa.me/919063909032"
+            class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm md:text-base font-medium text-black shadow-sm transition hover:-translate-y-0.5 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
+            Get Started
+          </a>
+          <a href="#features"
+            class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm md:text-base font-medium text-white/90 hover:text-white hover:bg-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
+            Explore Features
+          </a>
+        </div>
       </div>
+    </section>
+    <!-- Footer  -->
 
-     
-      <div>
-        <h3 class="font-serif text-lg mb-4">Quick Links</h3>
-        <ul class="space-y-2 text-sm text-white/70">
-          <li><a href="#home" class="hover:text-white transition">Home</a></li>
-          <li><a href="#services" class="hover:text-white transition">Services</a></li>
-          <li><a href="#features" class="hover:text-white transition">Features</a></li>
-          <li><a href="#how" class="hover:text-white transition">How It Works</a></li>
-          <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Social -->
-      <div>
-        <h3 class="font-serif text-lg mb-4">Connect With Us</h3>
-       
+    <footer id="contact" class="bg-black text-white scroll-mt-24">
+      <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
 
-        <div class="flex items-center gap-4 mb-4">
- 
-
-  <a href="#" class="text-white/70 hover:text-white transition" aria-label="X (Twitter)" title="X">
-  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.5 11.24h-6.653l-5.214-6.82-5.967 6.82H1.682l7.73-8.838L1.25 2.25h6.82l4.713 6.231 5.46-6.231zm-1.163 18.52h1.834L7.084 3.63H5.117l11.964 17.14z"/>
-  </svg>
-</a>
+          <div>
 
 
-  <!-- LinkedIn -->
-  <!-- <a href="#" class="text-white/70 hover:text-white transition" aria-label="LinkedIn">
+            <a href="#home" class="flex items-center gap-3 text-white focus-outline--inverted" aria-label="Finoma Home">
+              <div
+                class="h-9 w-9 rounded-md bg-white/10 ring-1 ring-white/20 flex items-center justify-center overflow-hidden">
+                <img src="banner.jpg" alt="Finoma logo" class="h-full w-full object-cover" />
+              </div>
+
+              <div class="leading-tight">
+
+
+                <img src="headingimage.jpg" alt="Finoma Logo Text" class="h-6 w-auto">
+                <span class="block text-xs text-white/70">Quick funds, Brighter tomorrow</span>
+              </div>
+            </a>
+
+
+            <p class="mt-4 text-sm text-white/70 max-w-xs">
+              Finoma provides fast, transparent financial solutions for modern professionals.
+            </p>
+          </div>
+
+
+          <div>
+            <h3 class="font-serif text-lg mb-4">Quick Links</h3>
+            <ul class="space-y-2 text-sm text-white/70">
+              <li><a href="#home" class="hover:text-white transition">Home</a></li>
+              <li><a href="#services" class="hover:text-white transition">Services</a></li>
+              <li><a href="#features" class="hover:text-white transition">Features</a></li>
+              <li><a href="#how" class="hover:text-white transition">How It Works</a></li>
+              <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Social -->
+          <div>
+            <h3 class="font-serif text-lg mb-4">Connect With Us</h3>
+
+
+
+            <div class="flex items-center gap-4 mb-4">
+
+
+              <a href="#" class="text-white/70 hover:text-white transition" aria-label="X (Twitter)" title="X">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.5 11.24h-6.653l-5.214-6.82-5.967 6.82H1.682l7.73-8.838L1.25 2.25h6.82l4.713 6.231 5.46-6.231zm-1.163 18.52h1.834L7.084 3.63H5.117l11.964 17.14z" />
+                </svg>
+              </a>
+
+
+              <!-- LinkedIn -->
+              <!-- <a href="#" class="text-white/70 hover:text-white transition" aria-label="LinkedIn">
     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
       <path d="M19 0h-14c-2.8 0-5 2.2-5 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5v-14c0-2.8-2.2-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.2c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zm13.5 11.2h-3v-5.5c0-1.3-.5-2.1-1.7-2.1-1 0-1.5.7-1.7 1.4-.1.3-.1.7-.1 1.1v5.1h-3v-10h3v1.4c.4-.6 1.1-1.4 2.6-1.4 1.9 0 3.3 1.3 3.3 4v6z"/>
     </svg>
   </a> -->
 
- <!-- WhatsApp -->
-  <a href="https://wa.me/919063909032" 
-   class="text-white/70 hover:text-white transition" 
-   aria-label="WhatsApp" 
-   target="_blank" 
-   rel="noopener noreferrer">
-  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.72-1.654-2.017-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.148-.669-1.612-.916-2.21-.242-.579-.487-.5-.67-.51-.173-.009-.372-.011-.571-.011-.198 0-.52.075-.793.372-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.405h-.003a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.518-5.259c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.001 5.45-4.436 9.884-9.878 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.158 11.892c0 2.096.547 4.142 1.588 5.944L.057 24l6.305-1.654a11.88 11.88 0 005.684 1.448h.005c6.554 0 11.89-5.335 11.892-11.893a11.82 11.82 0 00-3.474-8.403z"/>
-  </svg>
-</a>
+              <!-- WhatsApp -->
+              <a href="https://wa.me/919063909032" class="text-white/70 hover:text-white transition"
+                aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.72-1.654-2.017-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.148-.669-1.612-.916-2.21-.242-.579-.487-.5-.67-.51-.173-.009-.372-.011-.571-.011-.198 0-.52.075-.793.372-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.405h-.003a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.518-5.259c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.001 5.45-4.436 9.884-9.878 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.158 11.892c0 2.096.547 4.142 1.588 5.944L.057 24l6.305-1.654a11.88 11.88 0 005.684 1.448h.005c6.554 0 11.89-5.335 11.892-11.893a11.82 11.82 0 00-3.474-8.403z" />
+                </svg>
+              </a>
 
 
 
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/finomaafintech?igsh=MTIzYXczYTA1dGN6dw%3D%3D&utm_source=qr" class="text-white/70 hover:text-white transition" aria-label="Instagram">
-    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.5a1 1 0 110 2 1 1 0 010-2z"/>
-    </svg>
-  </a>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/finomaafintech?igsh=MTIzYXczYTA1dGN6dw%3D%3D&utm_source=qr"
+                class="text-white/70 hover:text-white transition" aria-label="Instagram">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.5a1 1 0 110 2 1 1 0 010-2z" />
+                </svg>
+              </a>
 
- 
 
-</div>
 
-        <p class="text-sm text-white/70">Email: <a href="mailto:support@finoma.com" class="hover:text-white">support@finoma.com</a></p>
-         <p class="text-sm text-white/70">
-  Mobile: <a href="tel:+919063909032" class="hover:text-white">+91 90639 09032</a>
-</p>
+            </div>
 
-        <p class="text-sm text-white/70 mt-1">&copy; 2025 Finoma. All rights reserved.</p>
-        <p class="text-sm text-white/70 mt-1">A venture of YOOMAA CAPITAL PVT LTD.</p>
+            <p class="text-sm text-white/70">Email: <a href="mailto:support@finoma.com"
+                class="hover:text-white">support@finoma.com</a></p>
+            <p class="text-sm text-white/70">
+              Mobile: <a href="tel:+919063909032" class="hover:text-white">+91 90639 09032</a>
+            </p>
+
+            <p class="text-sm text-white/70 mt-1">&copy; 2025 Finoma. All rights reserved.</p>
+            <p class="text-sm text-white/70 mt-1">A venture of YOOMAA CAPITAL PVT LTD.</p>
+          </div>
+
+        </div>
       </div>
-
-    </div>
-  </div>
-</footer>
+    </footer>
   </main>
 </body>
+
 </html>
